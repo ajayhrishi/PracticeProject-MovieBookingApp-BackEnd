@@ -18,7 +18,7 @@ const HomePage = () => {
         <img
           width="100%"
           height="100%"
-          src="https://i.ytimg.com/vi/vGyG9Lnnn6M/maxresdefault.jpg"
+          src="https://img.freepik.com/free-vector/online-cinema-banner-with-open-clapper-board-film-strip_1419-2242.jpg"
           alt="KABZA"
         />
       </Box>
