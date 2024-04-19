@@ -12,7 +12,7 @@ const Auth = () => {
     console.log(data);
     dispatch(userActions.login())
     localStorage.setItem("userId",data.id)
-    navigate("/")
+    navigate("/") 
   }
   const getData = (data) => {
     console.log(data);
