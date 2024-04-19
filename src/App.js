@@ -58,3 +58,5 @@ const App = () => {
 };
 
 export default App;
+
+// hosted on https://practiceproject-moviebookingapp-frontend.onrender.com
