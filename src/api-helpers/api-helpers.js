@@ -11,7 +11,8 @@ export const getAllMovies = async () => {
   return data;
 };
 
-export const sendUserAuthRequest = async (data, signup) => {  // need to work on this function
+export const sendUserAuthRequest = async (data, signup) => { 
+// need to work on this function
   console.log('triggered the sendUserAuthRequest');
   console.log('first log',data,signup);
  let res;
@@ -32,26 +33,33 @@ export const sendUserAuthRequest = async (data, signup) => {  // need to work on
 
   if (res.status !== 200 && res.status !== 201) {
     console.log("Unexpected error occured");
-  
-
+    console.log(res.data);
   const resData = res.data;
   return resData;
 };
 }
 export const sendAdminAuthRequest = async (data) => {
-  const res = await axios
-    .post("http://127.0.0.1:5000/admin/login", {
-      email: data.email,
-      password: data.password,
-    })
-    .catch((err) => console.log(err));
+  let res;
+  try{res = await axios.post("http://127.0.0.1:5000/admin/login", {
+    email: data.email,
+    password: data.password,
+  }) }catch(err){
+    console.log('testing point #2',err.response)
+    if(err.response.status){
+      console.log(err.response.data.message);
+      return {
+        status:"error",
+        loginError: err.response.data.message}
+    }  
+  };
+
 
   if (res.status !== 200) {
     return console.log("unexpected error ocuured!");
   }
-
   const resData = await res.data;
   return resData;
+
 };
 
 export const getMovieDetails = async (id) => {

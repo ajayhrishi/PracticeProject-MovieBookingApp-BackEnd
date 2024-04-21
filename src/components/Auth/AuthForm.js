@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
+import {useSelector } from "react-redux";
 
 import React, { useState } from "react";
 import DisabledByDefaultRoundedIcon from "@mui/icons-material/DisabledByDefaultRounded";
@@ -17,6 +17,9 @@ import { Link } from "react-router-dom";
 const labelStyle = { mt: 1, mb: 1 };
 
 const AuthForm = ({ onSubmit, isAdmin }) => {
+
+  const LoginErrors = useSelector((state) => state.login.loginErrors);
+  
   const [isSignUp, setIsSignUp] = useState(false);
   const [formInputs, setFormInputs] = useState({
     name: "",
@@ -133,6 +136,7 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
           >
             {isSignUp ? "Signup" : "Login"}
           </Button>
+          {LoginErrors&& <p>{LoginErrors}</p>}
           {!isAdmin && (
             <Button
               onClick={() => {

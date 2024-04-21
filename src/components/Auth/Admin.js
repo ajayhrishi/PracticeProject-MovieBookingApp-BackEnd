@@ -2,14 +2,18 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { sendAdminAuthRequest } from "../../api-helpers/api-helpers";
-import { adminActions } from "../../store";
+import { adminActions,loginActions } from "../../store";
 import AuthForm from "./AuthForm";
 
 const Admin = () => {
   const navigate= useNavigate()
   const dispatch = useDispatch()
   const onResponseRecieved = (data) =>{
-    console.log(data);
+
+    if(data.status==="error"){console.log(data.loginError)
+     return dispatch(loginActions.setLoginError(data.loginError))
+    } // to set the login error
+    dispatch(loginActions.removeLoginError());
     dispatch(adminActions.login())
     localStorage.setItem("adminId", data.id)
     localStorage.setItem("token", data.token)
