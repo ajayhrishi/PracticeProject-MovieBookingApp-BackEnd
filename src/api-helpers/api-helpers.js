@@ -166,3 +166,4 @@ export const getAdminById = async () => {
   const resData = res.data;
   return resData;
 };
+
