@@ -2,22 +2,26 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { sendAdminAuthRequest } from "../../api-helpers/api-helpers";
-import { adminActions,loginActions } from "../../store";
+import { adminActions,errorActions } from "../../store";
 import AuthForm from "./AuthForm";
 
 const Admin = () => {
   const navigate= useNavigate()
   const dispatch = useDispatch()
-  const onResponseRecieved = (data) =>{
+  const onResponseRecieved = (data) =>{ 
 
-    if(data.status==="error"){console.log(data.loginError)
-     return dispatch(loginActions.setLoginError(data.loginError))
+    if(data.status==="error"){console.log(data.error)
+     return dispatch(errorActions.setError(data.error))
     } // to set the login error
-    dispatch(loginActions.removeLoginError());
-    dispatch(adminActions.login())
+    dispatch(errorActions.removeError());
+    dispatch(adminActions.login());
+    console.log('setting the location storage');
     localStorage.setItem("adminId", data.id)
     localStorage.setItem("token", data.token)
+    console.log('admin Id', localStorage.getItem("adminId"));
+    console.log('token', localStorage.getItem("token"));
     navigate("/")
+
   }
   const getData = (data) => {
     console.log("Admin", data);

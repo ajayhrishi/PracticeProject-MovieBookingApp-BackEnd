@@ -11,7 +11,6 @@ const HomePage = () => {
       .then((data) => setMovies(data.movies))
       .catch((err) => console.log(err));
   }, []);
-  console.log(movies);
   return (
     <Box width="100%" height="100%" margin="auto" marginTop="2">
       <Box margin="auto" width="80%" height="40vh" padding="2">

@@ -16,30 +16,53 @@ export const sendUserAuthRequest = async (data, signup) => {
   console.log('triggered the sendUserAuthRequest');
   console.log('first log',data,signup);
  let res;
+  let loginErr;
   if(signup){
+    console.log('sign Up part');
     res = await axios
     .post(`http://127.0.0.1:5000/user/signUp`, {
-      name: signup ? data.name : "",
+      name: data.name,
       email: data.email,
       password: data.password,
-    })
+    }).catch(err=>{
+      if(err.response.status){
+     console.log(err.response.data.message);
+     loginErr= {
+       status:"error",
+       loginError: err.response.data.message}
+ }})
   }else{
+    console.log('login part');
     res = await axios
     .post(`http://127.0.0.1:5000/user/login`, {
-      name: signup ? data.name : "",
+      name : "",
       email: data.email,
       password: data.password,
-  }) }
+  }).catch(err=>{
+     if(err.response.status){
+    console.log(err.response.data.message);
+    loginErr={
+      status:"error",
+      loginError: err.response.data.message}
+}}) } 
+  if(loginErr) return loginErr ;
+ 
+  // }  
+ 
+  console.log('test point', res);
+  console.log(res.data);
 
   if (res.status !== 200 && res.status !== 201) {
     console.log("Unexpected error occured");
-    console.log(res.data);
-  const resData = res.data;
-  return resData;
+    console.log(res.data); 
 };
+
+return res.data;
 }
+
 export const sendAdminAuthRequest = async (data) => {
   let res;
+  let loginErr;
   try{res = await axios.post("http://127.0.0.1:5000/admin/login", {
     email: data.email,
     password: data.password,
@@ -47,14 +70,15 @@ export const sendAdminAuthRequest = async (data) => {
     console.log('testing point #2',err.response)
     if(err.response.status){
       console.log(err.response.data.message);
-      return {
+      loginErr = {
         status:"error",
         loginError: err.response.data.message}
     }  
   };
 
-
-  if (res.status !== 200) {
+  if(loginErr) return loginErr;
+  console.log(res);
+  if (res.status !== 200 && res.status !== 201) {
     return console.log("unexpected error ocuured!");
   }
   const resData = await res.data;
@@ -132,13 +156,15 @@ export const getUserDetails = async () => {
 };
 
 export const addMovie = async (data) => {
+
+  console.log('check point #addMovie start');
   const res = await axios
     .post(
       "http://127.0.0.1:5000/movie/addMovie/",
       {
         title: data.title,
         description: data.description,
-        posterUrl: data.posterUrl,
+        posterURL: data.posterUrl,
         releaseDate: data.releaseDate,
         featured: data.featured,
         actors: data.actors,
@@ -150,26 +176,35 @@ export const addMovie = async (data) => {
         },
       }
     )
-    .catch((err) => console.log(err));
-
+    .catch((err) =>{
+      console.log(err);}
+      );
+      console.log('checkpoint latest');
   if (res.status !== 201) {
     return console.log("Unexpected error occured!");
   }
-
+  console.log('check point ');
   const resData = await res.data;
   return resData;
 };
 
 export const getAdminById = async () => {
   const adminId = localStorage.getItem("adminId");
-
-  const res = await axios
+  // console.log(adminId);
+  let res;
+  try{
+    res = await axios
     .get(`http://127.0.0.1:5000/admin/${adminId}`)   // Need to work on this function as well. 
     .catch((err) => console.log(err));
-
+  }catch(err){
+    console.log(err);
+  }
+  // console.log('this is a check point A');
   if (res.status !== 200) {
     return console.log("Unexpected error occured");
   }
+
+  // console.log('this is the Check point B')
 
   const resData = res.data;
   return resData;

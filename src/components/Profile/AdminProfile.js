@@ -4,13 +4,15 @@ import { getAdminById } from "../../api-helpers/api-helpers";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const AdminProfile = () => {
+
   const [admin, setAdmin] = useState();
   useEffect(() => {
     getAdminById()
       .then((res) => setAdmin(res.admin))
       .catch((err) => console.log(err));
   }, []);
-  // console.log(bookings);
+  console.log('this is another check point');
+  // Admin Profile Check point
   return (
     <Box width={"100%"} display="flex">
       <Fragment>

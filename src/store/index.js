@@ -29,27 +29,27 @@ const adminSlice = createSlice({
   },
 });
 
-const loginSlice = createSlice({
-  name: "login",
-  initialState: { loginErrors : "" },
+const errorSlice = createSlice({
+  name: "errors",
+  initialState: { error : "" },
   reducers: {
-    setLoginError(state,action) {
-      state.loginErrors = action.payload;
+    setError(state,action) {
+      state.error = action.payload;
     },
-    removeLoginError(state) {
-      state.loginErrors = false;
+    removeError(state) {
+      state.error = false;
     },
   },
 });
 
 export const adminActions = adminSlice.actions;
 export const userActions = userSlice.actions;
-export const loginActions = loginSlice.actions;
+export const errorActions = errorSlice.actions;
 
 export const store = configureStore({
   reducer: {
     user: userSlice.reducer,
     admin: adminSlice.reducer,
-    login: loginSlice.reducer
+    login: errorSlice.reducer
   },
 });
