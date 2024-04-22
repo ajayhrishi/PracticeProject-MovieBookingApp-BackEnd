@@ -1,17 +1,29 @@
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
 import React, { Fragment, useEffect, useState } from "react";
-import { getAdminById } from "../../api-helpers/api-helpers";
+import { getAdminById, getMovieDetails } from "../../api-helpers/api-helpers";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const AdminProfile = () => {
-
-  const [admin, setAdmin] = useState();
+  console.log('adminPorfile Component triggered');
+  const [movies, setMovies] = useState([]);
+  const [admin, setAdmin] = useState(null);
+  console.log('going in to the userEffect');
   useEffect(() => {
+    console.log("check Point #1");
     getAdminById()
-      .then((res) => setAdmin(res.admin))
+      .then((res) => {
+        setAdmin(res.admin);
+        const movieDetailsPromises = res.admin.movies.map(async (movie) => {
+          return await getMovieDetails(movie);
+        });
+        Promise.all(movieDetailsPromises).then((moviesData) => {
+          setMovies(moviesData);
+          console.log('checkpoint #2', moviesData);
+        });
+      })
       .catch((err) => console.log(err));
   }, []);
-  console.log('this is another check point');
+
   // Admin Profile Check point
   return (
     <Box width={"100%"} display="flex">
@@ -36,11 +48,22 @@ const AdminProfile = () => {
               border={"1px solid #ccc"}
               borderRadius={6}
             >
+              Name : {admin.name}
+            </Typography>
+            <Typography
+              mt={1}
+              padding={1}
+              width={"auto"}
+              textAlign={"center"}
+              border={"1px solid #ccc"}
+              borderRadius={6}
+            >
               Email: {admin.email}
             </Typography>
           </Box>
         )}
-        {admin && admin.addedMovies.length > 0 && (
+
+        {admin && admin.movies.length > 0 && (
           <Box width={"70%"} display={"flex"} flexDirection={"column"}>
             <Typography
               variant="h3"
@@ -57,8 +80,9 @@ const AdminProfile = () => {
               width={"80%"}
             >
               <List>
-                {admin.addedMovies.map((movie, index) => (
+                {movies.map((movie, index) => (
                   <ListItem
+                    key={index}
                     sx={{
                       bgcolor: "#00d386",
                       color: "white",
@@ -70,7 +94,7 @@ const AdminProfile = () => {
                     <ListItemText
                       sx={{ margin: 1, width: "auto", textAlign: "left" }}
                     >
-                      Movie: {movie.title}
+                      Movie: {movie.title ? movie.title : 'loading'}
                     </ListItemText>
                   </ListItem>
                 ))}
@@ -78,6 +102,7 @@ const AdminProfile = () => {
             </Box>
           </Box>
         )}
+
       </Fragment>
     </Box>
   );

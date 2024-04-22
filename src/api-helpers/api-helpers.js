@@ -87,13 +87,15 @@ export const sendAdminAuthRequest = async (data) => {
 };
 
 export const getMovieDetails = async (id) => {
+  // console.log('this is get movie by id function', id)
   const res = await axios.get(`http://127.0.0.1:5000/movie/${id}`).catch((err) => console.log(err));
 
   if (res.status !== 200) {
     return console.log("Unexpected error occured");
   }
 
-  const resData = res.data;
+  const resData = await res.data.movie;
+  console.log(res.data.movie);
   return resData;
 };
 
@@ -204,7 +206,7 @@ export const getAdminById = async () => {
     return console.log("Unexpected error occured");
   }
 
-  // console.log('this is the Check point B')
+  
 
   const resData = res.data;
   return resData;
