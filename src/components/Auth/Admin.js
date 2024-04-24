@@ -9,9 +9,9 @@ const Admin = () => {
   const navigate= useNavigate()
   const dispatch = useDispatch()
   const onResponseRecieved = (data) =>{ 
-
-    if(data.status==="error"){console.log(data.error)
-     return dispatch(errorActions.setError(data.error))
+    console.log(data);
+    if(data.status==="error"){console.log(data.loginError)
+     return dispatch(errorActions.setError(data.loginError))
     } // to set the login error
     dispatch(errorActions.removeError());
     dispatch(adminActions.login());

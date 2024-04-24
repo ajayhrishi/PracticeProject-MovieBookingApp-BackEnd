@@ -10,8 +10,8 @@ const Auth = () => {
   const dispatch = useDispatch()
   const onResponseRecieved = (data) =>{
     console.log('test point 234',data);
-    if(data.status==="error"){console.log(data.error)
-      return dispatch(errorActions.setError(data.error))
+    if(data.status==="error"){console.log(data.loginError)
+      return dispatch(errorActions.setError(data.loginError))
      } // to set the login error
     dispatch(errorActions.removeError());
     dispatch(userActions.login())

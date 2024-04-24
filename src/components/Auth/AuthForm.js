@@ -18,8 +18,8 @@ const labelStyle = { mt: 1, mb: 1 };
 
 const AuthForm = ({ onSubmit, isAdmin }) => {
 
-  const LoginErrors = useSelector((state) => state.login.loginErrors);
-  
+  const LoginErrors = useSelector((state) => state.errors.error);
+  console.log('test point Login Error',LoginErrors );
   const [isSignUp, setIsSignUp] = useState(false);
   const [formInputs, setFormInputs] = useState({
     name: "",
@@ -136,7 +136,7 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
           >
             {isSignUp ? "Signup" : "Login"}
           </Button>
-          {LoginErrors&& <p>{LoginErrors}</p>}
+          {LoginErrors && <p>{LoginErrors}</p>}
           {!isAdmin && (
             <Button
               onClick={() => {

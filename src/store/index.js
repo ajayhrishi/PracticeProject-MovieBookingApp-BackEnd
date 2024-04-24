@@ -50,6 +50,6 @@ export const store = configureStore({
   reducer: {
     user: userSlice.reducer,
     admin: adminSlice.reducer,
-    login: errorSlice.reducer
+    errors: errorSlice.reducer
   },
 });
