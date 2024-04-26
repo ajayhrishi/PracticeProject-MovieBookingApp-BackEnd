@@ -30,76 +30,41 @@ const AdminProfile = () => {
       <Fragment>
         {" "}
         {admin && (
-          <Box
-            flexDirection={"column"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            width={"30%"}
-            padding={3}
-          >
-            <AccountCircleIcon
-              sx={{ fontSize: "10rem", textAlign: "center", ml: 3 }}
-            />
-            <Typography
-              mt={1}
-              padding={1}
-              width={"auto"}
-              textAlign={"center"}
-              border={"1px solid #ccc"}
-              borderRadius={6}
-            >
-              Name : {admin.name}
+          <Box flexDirection={"column"} justifyContent={"center"} alignItems={"center"} width={"30%"} padding={3}>
+
+            <AccountCircleIcon sx={{ fontSize: "10rem", textAlign: "center", ml: 3 }} />
+
+            <Typography mt={1} padding={1} width={"auto"} textAlign={"center"} border={"1px solid #ccc"} borderRadius={6}>
+            Name : {admin.name}
             </Typography>
-            <Typography
-              mt={1}
-              padding={1}
-              width={"auto"}
-              textAlign={"center"}
-              border={"1px solid #ccc"}
-              borderRadius={6}
-            >
-              Email: {admin.email}
-            </Typography>
+
+            <Typography mt={1} padding={1} width={"auto"} textAlign={"center"} border={"1px solid #ccc"} borderRadius={6}>
+            Email: {admin.email}
+            </Typography>          
+      
           </Box>
         )}
 
         {admin && admin.movies.length > 0 && (
           <Box width={"70%"} display={"flex"} flexDirection={"column"}>
-            <Typography
-              variant="h3"
-              fontFamily={"veranda"}
-              textAlign={"center"}
-              padding={2}
-            >
-              Added Movies
-            </Typography>
-            <Box
-              margin={"auto"}
-              display={"flex"}
-              flexDirection={"column"}
-              width={"80%"}
-            >
+            <Typography variant="h3" fontFamily={"veranda"} textAlign={"center"} padding={2} > Added Movies </Typography>
+            
+            <Box margin={"auto"} display={"flex"} flexDirection={"column"}  width={"80%"} >
+
               <List>
                 {movies.map((movie, index) => (
-                  <ListItem
-                    key={index}
-                    sx={{
-                      bgcolor: "#00d386",
-                      color: "white",
-                      textAlign: "center",
-                      margin: 1,
-                      borderRadius: 3,
-                    }}
-                  >
-                    <ListItemText
-                      sx={{ margin: 1, width: "auto", textAlign: "left" }}
-                    >
+                  <ListItem key={index} sx={{ bgcolor: "#00d386",  color: "white", textAlign: "center",  margin: 1, borderRadius: 3,}}>
+                    
+                    <ListItemText sx={{ margin: 1, width: "auto", textAlign: "left" }}>
                       Movie: {movie.title ? movie.title : 'loading'}
                     </ListItemText>
-                  </ListItem>
-                ))}
+
+                  </ListItem> ))
+                }
               </List>
+
             </Box>
+
           </Box>
         )}
 
