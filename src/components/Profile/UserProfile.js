@@ -24,7 +24,7 @@ const UserProfile = () => {
       .catch((err) => console.log(err));
 
     getUserDetails()
-      .then((res) => setUser(res.user))
+      .then((res) => {console.log(res); setUser(res.user); })
       .catch((err) => console.log(err));
   }, []);
   console.log(bookings);
