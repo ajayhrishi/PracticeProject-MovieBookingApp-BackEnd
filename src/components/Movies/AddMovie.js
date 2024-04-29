@@ -39,73 +39,25 @@ const AddMovie = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Box
-          width={"50%"}
-          padding={10}
-          margin={"auto"}
-          display={"flex"}
-          flexDirection={"column"}
-          boxShadow={"10px 10px 20px #ccc"}
-        >
-          <Typography
-            textAlign={"center"}
-            variant={"h5"}
-            fontFamily={"veranda"}
-            mb={6}
-          >
-            Add New Movie
-          </Typography>
+        <Box width={"50%"} padding={10} margin={"auto"} display={"flex"} flexDirection={"column"} boxShadow={"10px 10px 20px #ccc"}>
+          <Typography textAlign={"center"} variant={"h5"} fontFamily={"veranda"} mb={6} > Add New Movie </Typography>
           <FormLabel>Title</FormLabel>
-          <TextField
-            name="title"
-            onChange={handleChange}
-            variant="standard"
-            margin="normal"
-          />
+          <TextField name="title" onChange={handleChange} variant="standard" margin="normal"/>
           <FormLabel>Description</FormLabel>
-          <TextField
-            name="description"
-            onChange={handleChange}
-            variant="standard"
-            margin="normal"
-          />
+          <TextField name="description" onChange={handleChange} variant="standard" margin="normal" />
           <FormLabel>Release Date</FormLabel>
-          <TextField
-            name="releaseDate"
-            onChange={handleChange}
-            type="date"
-            variant="standard"
-            margin="normal"
-          />
+          <TextField name="releaseDate" onChange={handleChange} type="date" variant="standard" margin="normal"/>
           <FormLabel>Poster Url</FormLabel>
-          <TextField
-            name="posterUrl"
-            onChange={handleChange}
-            variant="standard"
-            margin="normal"
-          />
+          <TextField name="posterUrl" onChange={handleChange} variant="standard" margin="normal"/>
           <FormLabel>Actors</FormLabel>
+
           <Box display={"flex"}>
-            <TextField
-              value={actor}
-              name="actor"
-              onChange={(e) => setActor(e.target.value)}
-              variant="standard"
-              margin="normal"
-            />
-            <Button
-              onClick={() => {
-                setActors([...actors, actor]);
-                setActor("");
-              }}
-            >
-              Add
-            </Button>
+            <TextField value={actor} name="actor" onChange={(e) => setActor(e.target.value)} variant="standard" margin="normal" />
+            <Button onClick={() => { setActors([...actors, actor]); setActor("");}}> Add </Button> 
           </Box>
+
           <FormLabel>Featured</FormLabel>
-          <Checkbox
-            name="featured"
-            checked={inputs.featured}
+          <Checkbox name="featured" checked={inputs.featured}
             onClick={(e) =>
               setInputs((prevState) => ({
                 ...prevState,
